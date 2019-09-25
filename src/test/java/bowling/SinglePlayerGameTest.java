@@ -35,13 +35,8 @@ public class SinglePlayerGameTest {
 	@Test
 	public void testOneSpare()  {
 		rollSpare(); // 10 + 3
-                System.out.println(game.score());
-                System.out.println(game.getspare());
 		game.lancer(3); // 3
-                System.out.println(game.getspare());
-                System.out.println(game.score());
 		rollMany(17, 0); // 0
-                System.out.println(game.score());
 		assertEquals(16, game.score());
 	}
 
