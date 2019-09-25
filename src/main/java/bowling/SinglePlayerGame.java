@@ -23,14 +23,16 @@ public class SinglePlayerGame {
 	 */
 	public SinglePlayerGame() {
             this.p_score=0;
-            this.tentative=1;
-            this.tour=1;
+            this.tentative=0;
+            this.tour=0;
             this.spard=false;
             this.strikd=false;
             this.boulstrike=0;
             this.quilles=10;
 	}
-
+        public boolean getspare(){
+            return this.spard;
+        }
 	/**
 	 * Cette méthode doit être appelée à chaque lancé de boule
 	 *
@@ -43,20 +45,24 @@ public class SinglePlayerGame {
                 if (spard){
                     this.p_score+=20;
                     this.spard=false;
-                }
-                if (strikd && boulstrike==1){
+                }else{
+                   if (strikd && boulstrike==1){
                     this.p_score+=20;
                     this.boulstrike+=1;
-                }
-                if (strikd && boulstrike==2){
+                }else{
+                     if (strikd && boulstrike==2){
                     this.p_score+=20;
-                    this.boulstrike=0;
-                }
-                else{
+                    this.boulstrike=1;
+                }else{
                     this.p_score +=10;
+                    this.boulstrike=1;
+                }                   
+                }               
                 }
+                
                 this.strikd=true;
-                this.aled[this.tour]=10;
+                
+                //this.aled[this.tour]=10;
                 this.tour+=1; 
 
             }else if (nombreDeQuillesAbattues == this.quilles){
@@ -71,20 +77,42 @@ public class SinglePlayerGame {
                 if (strikd && boulstrike==2){
                     this.p_score+=this.quilles*2;
                     this.boulstrike=0;
+                    this.strikd=false;
                 }
                 else{
-                    this.p_score +=this.quilles*2;
+                    this.p_score +=this.quilles;
                 }
                 this.spard=true;
                 this.tour+=1;
+                this.tentative=0;
+                this.quilles=10;
+                //System.out.println(this.p_score);
             }else {
-                
-                this.p_score=nombreDeQuillesAbattues;
-                this.quilles=this.quilles-nombreDeQuillesAbattues;
+                if (spard){
+                    this.p_score+=nombreDeQuillesAbattues*2;
+                    this.spard=false;
+                }else{
+                   if (strikd && boulstrike==1){
+                    this.p_score+=nombreDeQuillesAbattues*2;
+                    this.boulstrike+=1;
+                }else{
+                     if (strikd && boulstrike==2){
+                    this.p_score+=nombreDeQuillesAbattues*2;
+                    this.boulstrike=1;
+                }else{
+                    this.p_score +=nombreDeQuillesAbattues;
+                    
+                }                   
+                }               
+                }
+                this.quilles-=nombreDeQuillesAbattues;
                 this.tentative+=1;
                 if (this.tentative==2){
                     this.tour+=1;
+                    this.tentative=0;
+                    this.quilles=10;
                 }
+                //this.tentative+=1;
             }
             }
             
